@@ -1,0 +1,22 @@
+    
+<div class="ui menu">
+  <div class="header item">
+    <%= link "Jobber", to: Routes.page_path(@conn, :index) %>
+  </div>
+  <div class="item">
+    <%= link raw(~s'<i class="user icon"></i>Sign up'), to: Routes.user_path(@conn, :new) %>
+  </div>
+  <div class="right menu">
+    <div class="ui dropdown item">
+      Language <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">English</a>
+        <a class="item">Russian</a>
+        <a class="item">Spanish</a>
+      </div>
+    </div>
+    <div class="item">
+      Link
+    </div>
+  </div>
+</div>
