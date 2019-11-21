@@ -14,10 +14,6 @@ defmodule Jobber.Guardian do
     {:ok, to_string(user.id)}
   end
 
-  def subject_for_token(_, _) do
-    {:error, :reason_for_error}
-  end
-
   def resource_from_claims(%{"sub" => id}) do
     case Accounts.get_user!(id) do
       nil -> {:error, :resource_not_found}
@@ -25,7 +21,7 @@ defmodule Jobber.Guardian do
     end
   end
 
-  def resource_from_claims(_claims) do
-    {:error, :reason_for_error}
-  end
+  # def resource_from_claims(_claims) do
+  #   {:error, :reason_for_error}
+  # end
 end

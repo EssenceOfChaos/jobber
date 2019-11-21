@@ -98,7 +98,7 @@ defmodule Jobber.Accounts do
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}
 
   defp check_password(user, given_password) do
-    case Argon2.verify_pass(given_password, user.password_hash) do
+    case Argon2.verify_pass(given_password, user.encrypted_password) do
       true -> {:ok, user}
       false -> {:error, "Incorrect email or password"}
     end

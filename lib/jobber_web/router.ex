@@ -26,7 +26,7 @@ defmodule JobberWeb.Router do
     resources "/users", UserController
 
     resources("/users", UserController, only: [:new, :create, :show, :index])
-    resources("/session", SessionController, only: [:create, :new, :delete])
+    resources("/session", SessionController, only: [:create, :new])
   end
 
   scope "/", JobberWeb do

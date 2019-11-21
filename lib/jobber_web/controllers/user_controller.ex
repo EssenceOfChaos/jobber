@@ -19,7 +19,8 @@ defmodule JobberWeb.UserController do
       {:ok, user} ->
         conn
         |> put_session(:current_user_id, user.id)
-        |> put_flash(:info, "User created successfully.")
+        |> Accounts.login(user)
+        |> put_flash(:info, "User #{user.username} was created successfully!")
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->

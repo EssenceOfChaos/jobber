@@ -16,6 +16,7 @@ defmodule JobberWeb.SessionController do
       {:ok, user} ->
         conn
         |> Accounts.login(user)
+        |> put_session(:current_user_id, user.id)
         |> assign(:fake_news, "idk;alksdj")
         |> put_flash(:info, "Successfully authenticated as " <> user.email <> ".")
         |> redirect(to: Routes.page_path(conn, :index))
