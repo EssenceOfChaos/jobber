@@ -1,6 +1,8 @@
+<% if Jobber.Accounts.get_current_user(@conn) do %>
 <div class="ui info message">
   <p> You are currently logged in as <%= Jobber.Accounts.get_current_user(@conn).username %> </p>
 </div>
+<% end %>
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{name}!", name: "Jobber" %></h1>
   <p>A Job portal and reference generator<br />
@@ -10,5 +12,10 @@
 <p> Check out the list of <%= link "users", to: Routes.user_path(@conn, :index) %>
   <hr />
   Don't have an account? <%= link raw(~s'<i class="user icon"></i>Sign up'), to: Routes.user_path(@conn, :new) %>
+  <p> paragraph text </p>
+  <p> paragraph text </p>
+  <p> paragraph text </p>
+  <br />
   <section>
+    <h3> Heading 3 here </h3>
   </section>

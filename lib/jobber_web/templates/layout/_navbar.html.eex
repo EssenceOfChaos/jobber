@@ -1,6 +1,6 @@
 <div class="ui menu">
   <div class="header item">
-    <%= link "Jobber", to: Routes.page_path(@conn, :index) %>
+    <%= link "Jobber", to: Routes.page_path(@conn, :index), class: "app-name" %>
   </div>
   <div class="item">
     Link
@@ -11,10 +11,12 @@
         <%= link raw(~s'<i class="user circle icon"></i>Profile'), to: Routes.user_path(@conn, :show, Guardian.Plug.current_resource(@conn).id), class: "ui basic button" %>
       </div>
       <div class="item">
-        <%= link raw(~s'<i class="sign out alternate icon"></i>Logout'), to: Routes.session_path(@conn, :new), method: :delete, class: "ui compact red button" %>
+        <%= link raw(~s'<i class="sign out alternate icon"></i>Logout'), to: Routes.session_path(@conn, :new), method: :delete, class: "ui basic red button" %>
       </div>
     <% else %>
-      <%= link "Login", to: Routes.session_path(@conn, :new) %>
+      <div class="item">
+        <%= link raw(~s'<i class="sign in icon"></i>Login'), to: Routes.session_path(@conn, :new), class: "ui basic primary button" %>
+      </div>
     <% end %>
   </div>
 </div>

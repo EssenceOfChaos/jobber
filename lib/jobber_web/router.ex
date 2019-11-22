@@ -21,6 +21,14 @@ defmodule JobberWeb.Router do
 
   scope "/", JobberWeb do
     pipe_through :browser
+    pipe_through :api
+    
+    forward "/api", Absinthe.Plug,
+      schema: JobberWeb.Schema.Schema
+
+    forward "graphiql", Absinthe.Plug.GraphiQL,
+    schema: JobberWeb.Schema.Schema,
+    interface: :simple
 
     get "/", PageController, :index
     resources "/users", UserController

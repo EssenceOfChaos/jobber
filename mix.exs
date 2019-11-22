@@ -1,4 +1,7 @@
 defmodule Jobber.MixProject do
+  @moduledoc """
+  Application entry point and list of external dependencies.
+  """
   use Mix.Project
 
   def project do
