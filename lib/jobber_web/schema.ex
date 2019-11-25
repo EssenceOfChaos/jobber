@@ -1,4 +1,4 @@
-defmodule JobberWeb.Schema.Schema do
+defmodule JobberWeb.Schema do
   @moduledoc """
   Defines the GraphQL Schema
   """

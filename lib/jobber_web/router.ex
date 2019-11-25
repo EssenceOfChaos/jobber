@@ -21,14 +21,6 @@ defmodule JobberWeb.Router do
 
   scope "/", JobberWeb do
     pipe_through :browser
-    pipe_through :api
-    
-    forward "/api", Absinthe.Plug,
-      schema: JobberWeb.Schema.Schema
-
-    forward "graphiql", Absinthe.Plug.GraphiQL,
-    schema: JobberWeb.Schema.Schema,
-    interface: :simple
 
     get "/", PageController, :index
     resources "/users", UserController
@@ -43,8 +35,12 @@ defmodule JobberWeb.Router do
     resources("/session", SessionController, only: [:delete])
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", JobberWeb do
-  #   pipe_through :api
-  # end
+  scope "/" do
+    pipe_through :api
+    forward "/api", Absinthe.Plug, schema: JobberWeb.Schema
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: JobberWeb.Schema,
+      interface: :simple
+  end
 end

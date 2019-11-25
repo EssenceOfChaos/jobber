@@ -36,7 +36,15 @@ defmodule JobberWeb.UserController do
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     changeset = Accounts.change_user(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+    current_user = Guardian.Plug.current_resource(conn)
+
+    if user == current_user do
+      render(conn, "edit.html", user: user, changeset: changeset)
+    else
+      conn
+      |> put_flash(:error, "Sorry, you may only edit your own profile!")
+      |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -55,10 +63,18 @@ defmodule JobberWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    {:ok, _user} = Accounts.delete_user(user)
+    current_user = Guardian.Plug.current_resource(conn)
 
-    conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: Routes.user_path(conn, :index))
+    if user == current_user do
+      {:ok, _user} = Accounts.delete_user(user)
+
+      conn
+      |> put_flash(:info, "User deleted successfully.")
+      |> redirect(to: Routes.user_path(conn, :index))
+    else
+      conn
+      |> put_flash(:error, "Sorry, you may only delete your own profile!")
+      |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 end
