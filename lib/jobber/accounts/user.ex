@@ -11,6 +11,7 @@ defmodule Jobber.Accounts.User do
     field :email, :string
     field :encrypted_password, :string
     field :username, :string
+    field(:favorites, {:array, :string})
 
     ## Virtual Fields ##
     field :password, :string, virtual: true
@@ -19,7 +20,7 @@ defmodule Jobber.Accounts.User do
   end
 
   @required_fields ~w(username password email)a
-  @optional_fields ~w(avatar)a
+  @optional_fields ~w(avatar favorites)a
 
   @doc false
   def changeset(user, attrs) do
