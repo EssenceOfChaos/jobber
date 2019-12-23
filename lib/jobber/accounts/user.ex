@@ -13,6 +13,8 @@ defmodule Jobber.Accounts.User do
     field :username, :string
     field(:favorites, {:array, :string})
 
+    # Associations #
+    many_to_many :companies, Jobber.Company, join_through: "users_companies"
     ## Virtual Fields ##
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
@@ -38,6 +40,7 @@ defmodule Jobber.Accounts.User do
     |> encrypt_password
   end
 
+  ## Private ##
   defp encrypt_password(changeset) do
     password = get_change(changeset, :password)
 

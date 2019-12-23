@@ -1,21 +1,27 @@
 <% if Jobber.Accounts.get_current_user(@conn) do %>
-<div class="ui info message">
-  <p> You are currently logged in as <%= Jobber.Accounts.get_current_user(@conn).username %> </p>
-</div>
+  <div class="ui info message">
+    <p> You are currently logged in as <%= Jobber.Accounts.get_current_user(@conn).username %> </p>
+  </div>
 <% end %>
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{name}!", name: "Jobber" %></h1>
   <p>A Job portal and reference generator<br />
     currently in development.</p>
 </section>
-<h2> Resources </h2>
-<p> Check out the list of <%= link "users", to: Routes.user_path(@conn, :index) %>
-  <hr />
+<p> Check out the list of <%= link "users", to: Routes.user_path(@conn, :index) %> </p>
+<br />
+<p>
   Don't have an account? <%= link raw(~s'<i class="user icon"></i>Sign up'), to: Routes.user_path(@conn, :new) %>
-  <p> paragraph text </p>
-  <p> paragraph text </p>
-  <p> paragraph text </p>
-  <br />
-  <section>
-    <h3> Heading 3 here </h3>
-  </section>
+</p>
+<h6> The difference between using @message vs assigns[:message] is that the later returns nil if no key is present while the former raises an exception.</h6>
+<p> assigns[:message] = <%= assigns[:message] %></p>
+<br />
+<section>
+  <h3> Heading 3 here </h3>
+  <%= if (Application.get_env(:jobber, :environment) == :prod) do %>
+    <p> Application in <em>PRODUCTION</em> environment </p>
+  <% else %>
+    <p> Application in <em>DEVELOPMENT</em> environment </p>
+  <% end %>
+</p>
+</section>

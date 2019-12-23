@@ -6,8 +6,7 @@ defmodule Jobber.Accounts do
   import Ecto.Query, warn: false
   alias Jobber.Repo
 
-  alias Jobber.Accounts.User
-  alias Jobber.Guardian
+  alias Jobber.Accounts.{User, Company, Guardian}
 
   @doc """
   Returns the list of users.
@@ -58,23 +57,30 @@ defmodule Jobber.Accounts do
     User.changeset(user, %{})
   end
 
+  def add_user_to_company(%User{} = user, company_id) do
+    get_company!(company_id)
+    |> change_company()
+    |> Ecto.Changeset.put_assoc(:users, [user])
+    |> Repo.update!()
+  end
+
   ####### Dealing with authentication #######
 
   def login(conn, user) do
     conn
     |> Guardian.Plug.sign_in(user)
-    # |> assign(:current_user, user)
     |> assign(:user_signed_in?, true)
     |> put_session(:user_id, user.id)
-    # |> put_session(:current_user, user)
     |> configure_session(renew: true)
     |> put_user_token(user)
   end
 
   def logout(conn) do
     conn
+    |> assign(:user_signed_in?, false)
     |> configure_session(drop: true)
-    |> Guardian.Plug.sign_out()
+
+    # |> Guardian.Plug.sign_out()
   end
 
   def get_current_user(conn) do
@@ -111,5 +117,44 @@ defmodule Jobber.Accounts do
     else
       conn
     end
+  end
+
+  ## Company Context ##
+  def list_companies do
+    Repo.all(Company)
+    |> Repo.preload(:users)
+  end
+
+  def get_company(id) do
+    Repo.get!(Company, id)
+    |> Repo.preload([:users])
+  end
+
+  def get_company!(id), do: Repo.get!(Company, id)
+
+  def create_company(%User{} = user, attrs \\ %{}) do
+    %Company{}
+    |> Company.changeset(attrs)
+    |> put_user(user)
+    |> Repo.insert()
+  end
+
+  def update_company(%Company{} = company, attrs) do
+    company
+    |> Company.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_company(%Company{} = company) do
+    Repo.delete(company)
+  end
+
+  def change_company(%Company{} = company) do
+    Company.changeset(company, %{})
+  end
+
+  # Private functions
+  defp put_user(changeset, user) do
+    Ecto.Changeset.put_assoc(changeset, :user, user)
   end
 end

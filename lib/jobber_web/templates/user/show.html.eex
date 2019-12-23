@@ -1,18 +1,21 @@
 <h1>Show User</h1>
-<ul>
-  <li>
-    <strong>Username:</strong>
-    <%= @user.username %>
-  </li>
-  <li>
-    <strong>Avatar:</strong>
-    <%= @user.avatar %>
-  </li>
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
-</ul>
+<div class="ui card">
+  <div class="image">
+    <img src="<%= @user.avatar %>">
+  </div>
+  <div class="content">
+    <a class="header"><%= @user.username %></a>
+    <div class="meta">
+      <span class="date">Joined in 2019</span>
+    </div>
+    <div class="description">
+      Email: <%= @user.email %>
+    </div>
+  </div>
+  <div class="extra content">
+    <p> Example content </p>
+  </div>
+</div>
 <div class="ui buttons">
   <%= link "Edit", to: Routes.user_path(@conn, :edit, @user), class: "ui button" %>
   <div class="or"></div>

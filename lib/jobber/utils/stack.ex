@@ -1,4 +1,4 @@
-defmodule Stack do
+defmodule Jobber.Utils.Stack do
   @moduledoc """
   Implementation of a Stack data structure
   """

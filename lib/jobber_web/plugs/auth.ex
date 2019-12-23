@@ -3,7 +3,7 @@ defmodule JobberWeb.Plug.Authentication do
   use Guardian.Plug.Pipeline,
     otp_app: :jobber,
     error_handler: JobberWeb.GuardianErrorHandler,
-    module: Jobber.Guardian
+    module: Jobber.Accounts.Guardian
 
   plug Guardian.Plug.VerifySession
   plug Guardian.Plug.LoadResource, allow_blank: true

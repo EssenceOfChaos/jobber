@@ -47,7 +47,9 @@ defmodule Jobber.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       ## Added Deps ##
-      # graphql
+      # AMQP - RabbitMQ Broker
+      {:amqp, "~> 1.3"},
+      # GraphQL
       {:absinthe, "~> 1.4.2"},
       {:absinthe_phoenix, "~> 1.4.0"},
       {:absinthe_plug, "~> 1.4.0"},

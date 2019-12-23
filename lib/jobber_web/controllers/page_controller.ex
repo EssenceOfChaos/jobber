@@ -3,6 +3,7 @@ defmodule JobberWeb.PageController do
 
   def index(conn, _params) do
     conn
+    |> assign(:message, "Welcome Back!")
     |> IO.inspect()
     |> render("index.html")
   end

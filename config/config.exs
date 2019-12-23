@@ -25,9 +25,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :jobber, Jobber.Guardian,
+config(:jobber, Jobber.Accounts.Guardian,
   issuer: "jobber",
   secret_key: "yEA4EfMmH3UF6S+D2xBLh5GdPUXSxQ38JS9LgzBpNdLKJVVX3rQJCqOV2nubtuDX"
+)
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

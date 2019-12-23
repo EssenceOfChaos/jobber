@@ -1,4 +1,4 @@
-defmodule Queue do
+defmodule Jobber.Utils.Queue do
   @moduledoc """
   Implementing a FIFO Queue data structure
   """

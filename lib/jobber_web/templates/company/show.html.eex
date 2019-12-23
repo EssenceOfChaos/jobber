@@ -1,0 +1,19 @@
+<h1>Show Company</h1>
+<div class="ui card">
+  <div class="image">
+    <img src="<%= @company.logo %>">
+  </div>
+  <div class="content">
+    <a class="header"><%= @company.name %></a>
+    <div class="meta">
+      <span class="date">Founded in  <%= @company.year_founded %></span>
+    </div>
+    <div class="description">
+      Industry: <%= @company.industry %>
+    </div>
+  </div>
+  <div class="extra content">
+    <p> Example content </p>
+  </div>
+</div>
+<%= link "Company List", to: Routes.company_path(@conn, :index), class: "ui positive button" %>

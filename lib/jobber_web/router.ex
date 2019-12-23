@@ -24,7 +24,7 @@ defmodule JobberWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
-
+    resources "/companies", CompanyController, only: [:new, :create, :show, :index]
     resources("/users", UserController, only: [:new, :create, :show, :index])
     resources("/session", SessionController, only: [:create, :new])
   end
