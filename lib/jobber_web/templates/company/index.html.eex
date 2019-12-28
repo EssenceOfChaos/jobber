@@ -1,25 +1,29 @@
 <h1> Companies </h1>
-<table>
+<table class="ui very basic collapsing celled table">
   <thead>
     <tr>
-      <th> Name </th>
-      <th>Logo</th>
-      <th>Industry</th>
+      <th> Company </th>
       <th>Year Founded</th>
     </tr>
   </thead>
   <tbody>
     <%= for company <- @companies do %>
       <tr>
-        <td> <%= company.name %> </td>
-        <td><%= company.logo %></td>
-        <td><%= company.industry%></td>
-        <td><%= company.year_founded%></td>
         <td>
-          <span><%= link "Show", to: Routes.company_path(@conn, :show, company) %></span>
+          <h4 class="ui image header">
+            <img src="<%= company.logo %>" class="ui mini rounded image">
+            <div class="content">
+              <span><%= link company.name, to: Routes.company_path(@conn, :show, company) %></span>
+              <div class="sub header"> <%= company.industry%>
+              </div>
+            </div>
+          </h4>
+        </td>
+        <td>
+          <%= company.year_founded%>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<span><%= link "New company", to: Routes.company_path(@conn, :new) %></span>
+<span><%= link "Create New company", to: Routes.company_path(@conn, :new), class: "ui basic primary button" %></span>

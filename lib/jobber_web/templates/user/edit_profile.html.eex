@@ -43,7 +43,7 @@
   <%= error_tag f, :password %>
   <br>
   <div class="form-group">
-    <%= submit "Submit", class: "ui teal fluid button" %>
+    <%= submit "Save", class: "ui teal fluid button" %>
   </div>
 <% end %>
 <br>

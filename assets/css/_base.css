@@ -90,6 +90,6 @@ select {
 .header.item > a {
   text-decoration: none;
   font-size: 1.4rem;
-  color: blueviolet;
+  color: #40c2e6;
   font-family: "Hind", sans-serif;
 }

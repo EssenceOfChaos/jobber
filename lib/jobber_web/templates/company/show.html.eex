@@ -4,7 +4,7 @@
     <img src="<%= @company.logo %>">
   </div>
   <div class="content">
-    <a class="header"><%= @company.name %></a>
+    <div class="header" id="company_name"><%= @company.name %></div>
     <div class="meta">
       <span class="date">Founded in  <%= @company.year_founded %></span>
     </div>

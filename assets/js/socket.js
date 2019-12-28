@@ -6,9 +6,9 @@
 //
 // Pass the token on params as below. Or remove it
 // from the params if you are not using authentication.
-import {Socket} from "phoenix"
+import { Socket } from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+let socket = new Socket("/socket", { params: { token: window.userToken } })
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -53,11 +53,52 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //
 // Finally, connect to the socket:
 socket.connect()
+// Socket Hooks
+
+socket.onClose(() => console.log('the connection dropped'));
+
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("room:lobby", {})
+let chatInput = document.querySelector("#chat-input")
+let messagesContainer = document.querySelector("#messages")
+
+if (window.location.pathname == "/") {
+  chatInput.addEventListener("keypress", event => {
+    if (event.keyCode === 13) {
+      channel.push("new_msg", { body: chatInput.value })
+      chatInput.value = ""
+    }
+  })
+}
+
+channel.on("new_msg", payload => {
+  let messageItem = document.createElement("li")
+  messageItem.innerText = `[${Date()}] ${payload.body}`
+  messagesContainer.appendChild(messageItem)
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 export default socket
+
+
+
+// let channel = socket.channel(`game:${userCharacter}`, {});
+// let match = document.location.pathname.match(/\/games\/new\/(\w+)$/);
+// if (match) {
+//     let userCharacter = match[1];
+//     channel
+//         .join()
+//         .receive('ok', resp => {
+//             console.log(
+//                 `Joined successfully - User has choosen ${userCharacter}`,
+//                 resp
+//             );
+//         })
+//         .receive('error', resp => {
+//             console.log('Unable to join', resp);
+//         });
+// }

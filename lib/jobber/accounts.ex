@@ -15,12 +15,14 @@ defmodule Jobber.Accounts do
     Repo.all(User)
   end
 
+  def get_user(id), do: Repo.get(User, id)
+
   @doc """
   Gets a single user.
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def get_user(email) do
+  def get_user_by_email(email) do
     query = Ecto.Query.from(u in User, where: u.email == ^email)
     Repo.one(query)
   end
@@ -79,8 +81,7 @@ defmodule Jobber.Accounts do
     conn
     |> assign(:user_signed_in?, false)
     |> configure_session(drop: true)
-
-    # |> Guardian.Plug.sign_out()
+    |> Guardian.Plug.sign_out()
   end
 
   def get_current_user(conn) do
@@ -132,10 +133,9 @@ defmodule Jobber.Accounts do
 
   def get_company!(id), do: Repo.get!(Company, id)
 
-  def create_company(%User{} = user, attrs \\ %{}) do
+  def create_company(attrs \\ %{}) do
     %Company{}
     |> Company.changeset(attrs)
-    |> put_user(user)
     |> Repo.insert()
   end
 

@@ -25,3 +25,7 @@
   <% end %>
 </p>
 </section>
+<h4> Chat </h4>
+<div id="messages"></div>
+<input id="chat-input" type="text">
+<section>
